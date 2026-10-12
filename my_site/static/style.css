@@ -1,0 +1,363 @@
+/* Общие настройки */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Courier New', Courier, monospace; /* Пиксельный шрифт */
+    overflow: hidden; /* Чтобы не было полос прокрутки */
+}
+
+/* --- ЭКРАН ЗАГРУЗКИ --- */
+.loading-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #000000; /* Черный фон как в терминале */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* Поверх всего */
+    /* Анимация исчезновения через 7 секунд */
+    animation: hideLoading 1s ease-in-out 7s forwards;
+}
+
+@keyframes hideLoading {
+    to { opacity: 0; visibility: hidden; }
+}
+
+.terminal {
+    color: #ffffff;
+    font-size: 18px;
+    width: 80%;
+    max-width: 600px;
+}
+
+.load-text {
+    opacity: 0; /* Изначально текст невидим */
+    margin: 5px 0;
+}
+
+/* Задержки появления текста */
+.text-1 { animation: fadeInText 0.5s forwards 1s; }
+.text-2 { animation: fadeInText 0.5s forwards 2.5s; }
+.text-3 { animation: fadeInText 0.5s forwards 4s; }
+.text-4 { animation: fadeInText 0.5s forwards 5.5s; }
+
+@keyframes fadeInText {
+    to { opacity: 1; }
+}
+
+/* Полоска загрузки */
+.progress-bar {
+    width: 100%;
+    height: 15px;
+    background-color: #333;
+    border-radius: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background-color: #00ffcc; /* Цвет полоски */
+    animation: fillBar 6s linear forwards; /* Заполняется 6 секунд */
+}
+
+@keyframes fillBar {
+    to { width: 100%; }
+}
+
+
+/* --- ГЛАВНЫЙ ЭКРАН --- */
+.main-screen {
+    width: 100%; height: 100%;
+    background-color: #b4bdd6; /* Нежно-сиреневый фон */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Звезды на фоне */
+.stars-container {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.stars-img {
+    width: 120%; /* Растягиваем на весь экран */
+    opacity: 0;
+    /* Анимация: появляются после загрузки, увеличиваются из центра */
+    animation: zoomInStars 2s ease-out 8s forwards;
+}
+
+@keyframes zoomInStars {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Котик */
+.cat-img {
+    width: 350px; /* Размер котика */
+    z-index: 2;
+    opacity: 0;
+    /* Анимация: внезапное появление (поп) после загрузки */
+    animation: popCat 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) 8s forwards;
+}
+
+@keyframes popCat {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.1); opacity: 1; } /* Немного перелетает */
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Кнопочки */
+.menu-buttons {
+    margin-top: 30px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    /* Появляются вместе с котиком */
+    animation: fadeInText 1s forwards 8.5s; 
+}
+
+.cute-btn {
+    background-color: white;
+    border: 3px solid #e6e6fa; /* Светлая обводка */
+    border-radius: 20px;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.cute-btn:hover {
+    transform: scale(1.05); /* Увеличивается при наведении */
+    background-color: #fceaff;
+}
+
+.sparkle-icon {
+    width: 40px;
+}
+/* --- СТИЛИ ДЛЯ СТРАНИЦЫ ИНФОРМАЦИИ --- */
+.info-body {
+    background-color: #b4bdd6; /* Тот же сиреневый фон */
+    overflow-y: scroll; /* Разрешаем прокрутку */
+    overflow-x: hidden;
+}
+
+.info-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 50px;
+}
+
+.fact-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh; /* Каждая часть занимает экран */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+/* --- АНИМАЦИЯ КРУЖОЧКОВ --- */
+.circles-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1; /* Они на заднем плане */
+}
+
+.circle {
+    width: 200px;
+    height: 200px;
+    opacity: 0.5;
+}
+
+.circle-left {
+    margin-right: -100px; /* Сдвигаем, чтобы они соприкасались */
+    animation: moveLeft 2s ease-out 1s forwards; /* Задержка 1 сек, потом движение */
+}
+
+.circle-right {
+    margin-left: -100px; /* Сдвигаем, чтобы они соприкасались */
+    animation: moveRight 2s ease-out 1s forwards;
+}
+
+/* Анимация: разъезжаются в стороны */
+@keyframes moveLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-150px); }
+}
+
+@keyframes moveRight {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(150px); }
+}
+
+/* --- КАРТИНКИ И ТЕКСТ --- */
+.img-megaphone {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 150px;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeIn 1s forwards 2.5s; /* Появляются после кружочков */
+}
+
+.img-spaceship {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    width: 200px;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeIn 1s forwards 2.5s;
+}
+
+.text-box {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    padding: 30px;
+    max-width: 500px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    z-index: 3;
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 1s forwards 2.5s;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.img-galaxy-cat {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 150px;
+    z-index: 2;
+}
+
+.img-bow {
+    position: absolute;
+    bottom: 100px;
+    right: 100px;
+    width: 200px;
+    z-index: 2;
+}
+
+/* Кнопка "Вернуться назад" */
+.back-btn {
+    position: absolute;
+    bottom: 50px;
+    background-color: white;
+    border: 3px solid #e6e6fa;
+    border-radius: 20px;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    z-index: 3;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.back-btn:hover {
+    transform: scale(1.05);
+    background-color: #fceaff;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+/* --- СТИЛИ ДЛЯ СТРАНИЦЫ С ВИДЕО --- */
+.video-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Растягиваем на весь экран */
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative; /* <-- ВАЖНО! Это привяжет кнопку к низу */
+}
+
+.img-cat-heart {
+    width: 120px; /* Размер котиков сверху */
+    margin-bottom: -10px; /* Чуть-чуть накладываем на окошко */
+    z-index: 2;
+    position: relative;
+}
+
+.video-container {
+    background-color: white;
+    border-radius: 40px; /* Сильно закругляем углы */
+    padding: 30px;
+    width: 100%;
+    max-width: 500px; /* Ширина окошка */
+    height: 60vh; /* Высота окошка (60% от высоты экрана) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    z-index: 1;
+    margin-bottom: 40px;
+    overflow: hidden; /* Чтобы видео не вылезало за пределы окошка */
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Видео вписывается в окошко, сохраняя пропорции */
+    border-radius: 20px;
+}
+
+/* Кнопка "Вернуться назад" (на всякий случай продублируем) */
+.back-btn {
+    position: absolute;
+    bottom: 50px;
+    background-color: white;
+    border: 3px solid #e6e6fa;
+    border-radius: 20px;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    z-index: 3;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.back-btn:hover {
+    transform: scale(1.05);
+    background-color: #fceaff;
+}
